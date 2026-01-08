@@ -1,4 +1,4 @@
-# TMA4320: Git-øvelse
+# TMA4320: Git-øvelse før prosjekt
 
 Denne øvingen er ment som en intro til Git og GitHub. Du lærer grunnleggende kommandoer ved å gjøre enkle endringer i dette repoet.
 
@@ -145,22 +145,24 @@ Andre nyttige ressurser:
 - [Pro Git Book](ps://git-scm.com/learn)
 
 
-## Frivillig: GUIs for Git
-Mange foretrekker å bruke grafiske brukergrensesnitt (GUIs) for å håndtere Git i stedet for kommandolinjen. Her er noen populære alternativer.
+## Bonus: GUIs for Git
+Mange foretrekker å bruke grafiske brukergrensesnitt (GUIs) for å håndtere Git i stedet for kommandolinjen. Dette kan gjøre det enklere å visualisere endringer og raskere å utføre visse operasjoner. Her er noen populære alternativer.
 
 ### LazyGit (min personlige favoritt)
-LazyGit er et terminal-basert GUI for Git som gjør det enklere å håndtere commits, branches og merges uten å måtte skrive lange kommandoer. Personlig er det dette jeg bruker mest. Koden er åpen kildekode og kan lastes ned fra [LazyGit GitHub repository]("https://github.com/jesseduffield/lazygit").
+LazyGit er en terminal-basert GUI. Personlig bruker jeg LazyGit for 90% av mine Git-operasjoner, og kun kommandolinen for avanserte ting. Koden er åpen kildekode og programmet kan lastes ned fra [LazyGit GitHub repository]("https://github.com/jesseduffield/lazygit").
 
 <img src="figures/lazygit.png" width="50%" height="50%">
 
 ### GitHub Desktop
 GitHub Desktop er et brukervennlig GUI for Git som er utviklet av Microsoft. Det kan lastes ned gratis fra [Download GitHub Desktop]("https://desktop.github.com/download/").
+
 <img src="figures/github_desktop.webp" width="50%" height="50%">
 
 ### Source Control i VSCode
 VSCode har innebygd støtte for Git gjennom Source Control-panelet. Finn mer informasion på [Source Control in VS Code]("https://code.visualstudio.com/docs/sourcecontrol/overview").
+
 <img src="figures/vscode_source_control.png" width="50%" height="50%">
 
 
 
-Lykke til!
+### Lykke til!
