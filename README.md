@@ -8,6 +8,7 @@ Denne øvingen er ment som en intro til Git og GitHub. Du lærer grunnleggende k
 1. Pass på at du er logget inn på GitHub
 2. Trykk på "Fork"-knappen øverst til høyre på GitHub
 3. Du får nå din egen kopi av repoet
+4. Velg om du vil gjøre repoet privat eller offentlig (valgfritt). Dersom det er et offentlig repo, kan alle se koden din.
 
 **Naviger til passende sted maskinen din**
 Åpne terminalen og gå til mappen der du vil ha repoet. Bruk kommandoene
@@ -98,39 +99,173 @@ git push -u origin min-feature
 
 **Tilbake i terminalen:**
 ```bash
-git checkout main
-git pull
+git switch main     # Bytt tilbake til main-branchen
+git pull            # Hent de nyeste endringene fra GitHub
 ```
 
 Nå er endringene dine i main-branchen!
 
-## Del 5: Håndtere merge conflicts (valgfri)
+## Del 5: Håndtere merge conflicts (dette er noe mange sliter med)
 
-Dette skjer når to personer endrer samme linje i en fil.
+Merge conflicts oppstår når to branches endrer samme linje i en fil. Vi skal nå lage en konflikt lokalt på din egen PC for å lære hvordan man håndterer dem.
 
-1. Be en medstudent endre samme linje i `studenter.txt` som deg
-2. Dere vil begge pushe til hver deres fork
-3. Når dere prøver å merge, får dere en konflikt
-4. Git markerer konflikten i filen slik:
+**Lag en merge conflict:**
+
+1. Sjekk at du er på main-branchen:
+```bash
+git switch main
+```
+
+2. Lag to nye branches fra main:
+```bash
+git branch feature-1
+git branch feature-2
+```
+
+3. Gjør en endring på feature-1:
+```bash
+git switch feature-1
+```
+Åpne `studenter.txt` og endre den **første linjen** til:
+```
+Dette er endring fra feature-1
+```
+Commit endringen:
+```bash
+git add studenter.txt
+git commit -m "Endring fra feature-1"
+```
+
+4. Bytt til feature-2 og gjør en **annen** endring på **samme linje**:
+```bash
+git switch feature-2
+```
+Åpne `studenter.txt` og endre den **første linjen** til:
+```
+Dette er endring fra feature-2
+```
+Commit endringen:
+```bash
+git add studenter.txt
+git commit -m "Endring fra feature-2"
+```
+
+5. Merge feature-1 inn i main (dette går fint):
+```bash
+git switch main
+git merge feature-1
+```
+
+6. Nå prøver vi å merge feature-2 (dette gir konflikt!):
+```bash
+git merge feature-2
+```
+
+Du får nå en feilmelding om merge conflict!
+
+**Løs konflikten:**
+
+7. Åpne `studenter.txt`. Git har markert konflikten slik:
 ```
 <<<<<<< HEAD
-Din endring
+Dette er endring fra feature-1
 =======
-Medstudentens endring
->>>>>>> main
+Dette er endring fra feature-2
+>>>>>>> feature-2
 ```
-5. Rediger filen manuelt, fjern markeringene, og behold det du vil ha
-6. `git add`, `git commit`, og `git push`
 
-## Nyttige kommandoer
+8. Rediger filen manuelt. Fjern `<<<<<<<`, `=======`, og `>>>>>>>` markeringene, og behold det du vil ha. For eksempel:
+```
+Dette er endring fra feature-1 og feature-2
+```
+
+9. Fullfør merge:
+```bash
+git add studenter.txt
+git commit -m "Løst merge conflict mellom feature-1 og feature-2"
+```
+
+Gratulerer! Du har nå håndtert din første merge conflict.
+
+## Del 6: Bruk av .gitignore
+
+Noen filer skal ikke være med i Git, for eksempel store datafiler, midlertidige filer, eller autogenererte filer. Filen `.gitignore` forteller Git hvilke filer og mapper som skal ignoreres.
+
+**Oppgave:** Lag en `.gitignore` fil
+
+1. Lag noen testfiler:
+```bash
+touch rapport.pdf       # touch kommandoen lager en tom fil med det valgte filnavnet
+touch data.csv
+touch notater.pdf
+```
+
+2. Sjekk status:
+```bash
+git status
+```
+Du vil se at alle de nye filene er "untracked".
+
+3. Lag en `.gitignore` fil i rotmappen av repoet:
+```bash
+touch .gitignore
+```
+
+4. Åpne `.gitignore` i en teksteditor og legg til:
+```bash
+# Ignorer alle PDF-filer. På "dataspråk" betyr "*" alle filer. Ved å legge ved ".pdf" betyr det alle filer som slutter på .pdf
+*.pdf
+
+# Ignorer spesifikke filer
+data.csv
+
+# Ignorer hele mapper
+temp/
+```
+
+5. Sjekk status igjen:
+```bash
+git status
+```
+Nå vil du se at `rapport.pdf` og `notater.pdf` ikke lenger vises som untracked filer!
+
+**Nyttige .gitignore patterns:**
+- `*.pdf` - ignorerer alle PDF-filer
+- `__pycache__/` - ignorerer Python cache-mappen
+- `.DS_Store` - ignorerer macOS systemfiler
+
+6. Commit .gitignore filen:
+```bash
+git add .gitignore
+git commit -m "La til .gitignore"
+```
+
+**Tips:** GitHub har en samling av nyttige .gitignore-templates for ulike språk: [github.com/github/gitignore](https://github.com/github/gitignore)
+
+**Obs:** .gitignore påvirker kun filer som ikke allerede er tracket av Git. Hvis du allerede har commitet en fil, må du fjerne den fra Git-historikken for at .gitignore skal fungere på den filen.
+
+## Oppsummering av brukte kommandoer
 
 ```bash
-git status              # Se hva som er endret
-git log                 # Se commit-historikk
-git diff                # Se hva som er endret i filer
-git branch              # Se alle branches
-git switch <branch>     # Bytt til en annen branch
-git pull                # Hent nyeste endringer fra GitHub
+# Sjekke status og endringer
+git status                      # Se hva som er endret
+git log                         # Se commit-historikk
+git diff                        # Se hva som er endret i filer
+
+# Legge til og committe endringer
+git add <filnavn>               # Legg til en fil for commit. Evt. bruk "git add ." for å legge til alle endrede filer.
+git commit -m "Commit melding"  # Lag en commit med en melding
+
+
+# Jobbe med branches
+git branch                      # Se alle branches
+git branch <branch-navn>        # Lag en ny branch
+git switch <branch-navn>        # Bytt til en annen branch
+git merge <branch-navn>         # Merge en branch inn i den nåværende branchen
+
+# Sende endringer til og fra GitHub
+git push                        # Send endringer til GitHub
+git pull                        # Hent nyeste endringer fra GitHub
 ```
 
 ## Tips
@@ -143,6 +278,7 @@ git pull                # Hent nyeste endringer fra GitHub
 Andre nyttige ressurser:
 - [Git Cheat Sheet](https://education.github.com/git-cheat-sheet-education.pdf)
 - [Pro Git Book](ps://git-scm.com/learn)
+- [Philomatics Youtube kanal](https://www.youtube.com/@philomatics)
 
 
 ## Bonus: GUIs for Git
@@ -165,4 +301,4 @@ VSCode har innebygd støtte for Git gjennom Source Control-panelet. Finn mer inf
 
 
 
-### Lykke til!
+### Lykke til! Det kan kreve litt øvelse, men Git er et utrolig kraftig verktøy som er verdt å mestre.
