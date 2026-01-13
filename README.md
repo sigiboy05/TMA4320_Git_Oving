@@ -28,7 +28,7 @@ Deretter gir du repoet et navn (f.eks. `TMA4320_Oving_<Ditt_navn>`), velger "Pri
 ### Klon repoet til maskinen din ved bruk av GitHub Desktop
 I det nye repositoriet du har generert, velg "Code" og trykk på "Open with GitHub Desktop". Velg deretter hvor du vil lagre repoet lokalt på maskinen din, og trykk "Clone".
 
-<img src="figures/git_clone_to_desktop.png" width="100%" height="100%">
+<img src="figures/git_clone_to_desktop_new.png" width="100%" height="100%">
 
 Etter kloningen er ferdig kan du åpne prosjektet i Visual Studio Code ved å trykke på "Open in Visual Studio Code".
 
